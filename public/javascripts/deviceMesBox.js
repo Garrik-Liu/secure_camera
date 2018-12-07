@@ -15,6 +15,8 @@ socket.on("reload images", function(entities) {
         }
     })
 
+    console.log(imgList)
+
 
     loadImages(entities);
     if ($("#deviceMesBox").css("width") == "0px") {
@@ -29,6 +31,8 @@ socket.on("load images", function(entities) {
         imgList[e.imageUrl] = e;
         imgList[e.imageUrl].checked = false;
     })
+
+    console.log(imgList)
 
     loadImages(entities);
 });
