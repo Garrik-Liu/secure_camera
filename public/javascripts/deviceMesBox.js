@@ -9,10 +9,10 @@ $("#imgShowBoxId .closeBtn:first").click(function() {
 
 socket.on("reload images", function(entities) {
     entities.forEach(e => {
-      if(imgList[e.imageUrl] == null) {
-        imgList[e.imageUrl] = e;
-        imgList[e.imageUrl].checked = false;
-      }
+        if (imgList[e.imageUrl] == null) {
+            imgList[e.imageUrl] = e;
+            imgList[e.imageUrl].checked = false;
+        }
     })
 
 
@@ -26,8 +26,8 @@ socket.on("reload images", function(entities) {
 
 socket.on("load images", function(entities) {
     entities.forEach(e => {
-      imgList[e.imageUrl] = e;
-      imgList[e.imageUrl].checked = false;
+        imgList[e.imageUrl] = e;
+        imgList[e.imageUrl].checked = false;
     })
 
     loadImages(entities);
@@ -56,40 +56,40 @@ function loadImages(entities) {
 
     ImageEventListener(".deviceMesBox__imgElement", "#imgShowBoxId", ".imgShowBox__imgContainer");
 
-    for(e in imgList) {
-      if(!e.checked) {
-        checkFace(e.imageUrl);
-        e.checked = true;
-      }
+    for (e in imgList) {
+        if (!e.checked) {
+            checkFace(e.imageUrl);
+            e.checked = true;
+        }
     }
 }
 
 function checkFace(imgUrl) {
-  let trustFacesObj = {
-      faceList: null,
-      faceInSnapshot: null
-  };
+    let trustFacesObj = {
+        faceList: null,
+        faceInSnapshot: null
+    };
 
-  socket.emit('request trustFaces');
-  socket.on('get trustFaces', function(faceList) {
-      if (trustFacesObj.faceList === null) {
-          trustFacesObj.faceList = faceList;
+    socket.emit('request trustFaces');
+    socket.on('get trustFaces', function(faceList) {
+        if (trustFacesObj.faceList === null) {
+            trustFacesObj.faceList = faceList;
 
-          faceList.forEach((element, index, array) => {
-              compareFaces(element.url, imgUrl, function(result) {
+            faceList.forEach((element, index, array) => {
+                compareFaces(element.url, imgUrl, function(result) {
 
-                  if (result) {
-                      let firstFace = result.FaceMatches[0];
+                    if (result) {
+                        let firstFace = result.FaceMatches[0];
 
-                      let similarity = firstFace.Similarity;
-                      if (similarity < 70) {
-                      // send email
-                      }
-                  }
-              })
-          });
-      }
-  })
+                        let similarity = firstFace.Similarity;
+                        if (similarity < 70) {
+                            console.log("unknown", similarity)
+                        }
+                    }
+                })
+            });
+        }
+    })
 }
 
 
