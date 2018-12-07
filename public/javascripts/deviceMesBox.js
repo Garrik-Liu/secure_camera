@@ -61,7 +61,6 @@ function loadImages(entities) {
 
     for (e in imgList) {
         if (!e.checked) {
-            console.log(11);
             checkFace(e.imageUrl);
             e.checked = true;
         }
@@ -76,6 +75,8 @@ function checkFace(imgUrl) {
 
     socket.emit('request trustFaces');
     socket.on('get trustFaces', function(faceList) {
+        console.log(faceList);
+
         if (trustFacesObj.faceList === null) {
             trustFacesObj.faceList = faceList;
 
