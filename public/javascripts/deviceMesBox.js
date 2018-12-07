@@ -61,6 +61,7 @@ function loadImages(entities) {
 
     for (e in imgList) {
         if (!e.checked) {
+            console.log(e);
             checkFace(e.imageUrl);
             e.checked = true;
         }
@@ -80,7 +81,7 @@ function checkFace(imgUrl) {
             trustFacesObj.faceList = faceList;
 
             faceList.forEach((element, index, array) => {
-                console.log(element.url, '\n', imgUrl);
+
                 compareFaces(element.url, imgUrl, function(result) {
                     console.log(result)
                     if (result) {
