@@ -59,7 +59,8 @@ function loadImages(entities) {
 
     ImageEventListener(".deviceMesBox__imgElement", "#imgShowBoxId", ".imgShowBox__imgContainer");
 
-    for (e in imgList) {
+    for (let key in imgList) {
+        let e = imgList[key];
         if (!e.checked) {
             console.log(e);
             checkFace(e.imageUrl);
