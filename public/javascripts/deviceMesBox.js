@@ -80,6 +80,7 @@ function checkFace(imgUrl) {
             trustFacesObj.faceList = faceList;
 
             faceList.forEach((element, index, array) => {
+                console.log(element.url, '\n', imgUrl);
                 compareFaces(element.url, imgUrl, function(result) {
                     console.log(result)
                     if (result) {
@@ -234,7 +235,6 @@ function ImageEventListener(imgEleClass, imgShowId, imgShowBox__imgContainer) {
 function faceDetectCardEventListener(faceDetectCardId, data, color) {
 
     $(`#${faceDetectCardId}`).click(function() {
-        console.log(123)
         let imageElement = $('.imgShowBox__img:first');
         let boundingBox = data.Face.BoundingBox;
         let imgShowBoxBoundingBox = $('.imgShowBox__imgBoundingBox');
