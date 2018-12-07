@@ -75,7 +75,6 @@ function checkFace(imgUrl) {
 
     socket.emit('request trustFaces');
     socket.on('get trustFaces', function(faceList) {
-        console.log(faceList);
 
         if (trustFacesObj.faceList === null) {
             trustFacesObj.faceList = faceList;
@@ -87,6 +86,9 @@ function checkFace(imgUrl) {
                         let firstFace = result.FaceMatches[0];
 
                         let similarity = firstFace.Similarity;
+
+                        console.log(similarity);
+
                         if (similarity < 70) {
                             console.log("unknown", similarity)
                         }
