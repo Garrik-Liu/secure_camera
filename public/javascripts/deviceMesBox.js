@@ -81,7 +81,7 @@ function checkFace(imgUrl) {
 
             faceList.forEach((element, index, array) => {
                 compareFaces(element.url, imgUrl, function(result) {
-
+                    console.log(result)
                     if (result) {
                         let firstFace = result.FaceMatches[0];
 
