@@ -15,7 +15,6 @@ socket.on("reload images", function(entities) {
         }
     })
 
-    console.log(imgList)
 
 
     loadImages(entities);
@@ -32,7 +31,7 @@ socket.on("load images", function(entities) {
         imgList[e.imageUrl].checked = false;
     })
 
-    console.log(imgList)
+
 
     loadImages(entities);
 });
@@ -62,6 +61,7 @@ function loadImages(entities) {
 
     for (e in imgList) {
         if (!e.checked) {
+            console.log(11);
             checkFace(e.imageUrl);
             e.checked = true;
         }
