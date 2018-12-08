@@ -7,13 +7,7 @@ const router = express.Router();
 
 const KIND = "TrustFace";
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-           user: 'garrikliu@gmail.com',
-           pass: 'G078o166@'
-       }
-   });
+
 
 router.setSocketIo = function(socket, io) {
     router.io = io;
@@ -50,32 +44,8 @@ router.setSocketIo = function(socket, io) {
             router.socket.emit('get trustFaces', faceList)
         });
     })
-
-    router.socket.on('send email', function(emailInfo) {
-
-        let mailOptions = {
-            from: 'garrikliu@gamil.com', //邮件来源
-            to: `${emailInfo.email}`, //邮件发送到哪里，多个邮箱使用逗号隔开
-            subject: 'UNKNOWN FACE WARNNING', // 邮件主题
-            html: '<p>An unknowned face is detected!!!</p>', // html类型的邮件正文
-            attachments: [
-            {
-                filename: 'face.png',//附件名称
-                path: `${emailInfo.imgUrl}`,//附件的位置
-                cid: '123456789' //为附件添加一个引用名称
-            }
-            ]
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error);
-            }
-
-            console.log('Message %s sent: %s', info.messageId, info.response);
-        });
-
-    })
+    
+    
 };
 
 router.get("/", (req, res, next) => {

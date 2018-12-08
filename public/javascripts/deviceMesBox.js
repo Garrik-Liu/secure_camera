@@ -68,39 +68,7 @@ function loadImages(entities) {
     }
 }
 
-function checkFace(imgUrl) {
-    let trustFacesObj = {
-        faceList: null,
-        faceInSnapshot: null
-    };
 
-    socket.emit('request trustFaces');
-    socket.on('get trustFaces', function(faceList) {
-
-        if (trustFacesObj.faceList === null) {
-            trustFacesObj.faceList = faceList;
-
-            faceList.forEach((element, index, array) => {
-
-                compareFaces(element.url, imgUrl, function(result) {
-                    if (result) {
-                        let firstFace = result.FaceMatches[0];
-
-                        let similarity = firstFace.Similarity;
-
-                        if (similarity < 70) {
-                            let emailInfo = {}
-                            emailInfo.email = $('#headerUserDropBtn').data('email');
-                            emailInfo.imgUrl = imgUrl;
-
-                            socket.emit('send email', emailInfo);
-                        }
-                    }
-                })
-            });
-        }
-    })
-}
 
 
 function ImageEventListener(imgEleClass, imgShowId, imgShowBox__imgContainer) {
