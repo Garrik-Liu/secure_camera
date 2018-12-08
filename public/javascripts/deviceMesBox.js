@@ -62,7 +62,6 @@ function loadImages(entities) {
     for (let key in imgList) {
         let e = imgList[key];
         if (!e.checked) {
-            console.log(e);
             checkFace(e.imageUrl);
             e.checked = true;
         }
@@ -84,7 +83,6 @@ function checkFace(imgUrl) {
             faceList.forEach((element, index, array) => {
 
                 compareFaces(element.url, imgUrl, function(result) {
-                    console.log(result)
                     if (result) {
                         let firstFace = result.FaceMatches[0];
 
@@ -93,7 +91,11 @@ function checkFace(imgUrl) {
                         console.log(similarity);
 
                         if (similarity < 70) {
-                            console.log("unknown", similarity)
+                            let emailInfo = {}
+                            emailInfo.email = $('#headerUserDropBtn').text();
+                            emailInfo.imgUrl = imgUrl;
+
+                            socket.emit('send email', emailInfo);
                         }
                     }
                 })

@@ -41,6 +41,11 @@ router.setSocketIo = function(socket, io) {
             router.socket.emit('get trustFaces', faceList)
         });
     })
+
+    router.socket.on('send email', function(emailInfo) {
+
+        console.log(emailInfo)
+    })
 };
 
 router.get("/", (req, res, next) => {
