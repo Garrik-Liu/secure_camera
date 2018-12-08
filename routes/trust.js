@@ -1,10 +1,19 @@
 const express = require("express");
 const myImages = require("../lib/my-images");
 const modelDatastore = require("../lib/model-datastore");
+const nodemailer = require('nodemailer');
 
 const router = express.Router();
 
 const KIND = "TrustFace";
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+           user: 'ryan.wang23@hotmail.com',
+           pass: 'xxxxx'
+       }
+   });
 
 router.setSocketIo = function(socket, io) {
     router.io = io;
@@ -40,6 +49,32 @@ router.setSocketIo = function(socket, io) {
 
             router.socket.emit('get trustFaces', faceList)
         });
+    })
+
+    router.socket.on('send email', function(emailInfo) {
+
+        let mailOptions = {
+            from: 'ryan.wang23@hotmail.com',
+            to: `${emailInfo.email}`,
+            subject: 'UNKNOWN FACE WARNNING',
+            html: '<p>An unknowned face is detected!!!</p>',
+            attachments: [
+            {
+                filename: 'face.png',
+                path: `${emailInfo.imgUrl}`,
+                cid: '123456789'
+            }
+            ]
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+
+            console.log('Message %s sent: %s', info.messageId, info.response);
+        });
+
     })
 };
 
