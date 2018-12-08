@@ -88,11 +88,9 @@ function checkFace(imgUrl) {
 
                         let similarity = firstFace.Similarity;
 
-                        console.log(similarity);
-
                         if (similarity < 70) {
                             let emailInfo = {}
-                            emailInfo.email = $('#headerUserDropBtn').text();
+                            emailInfo.email = $('#headerUserDropBtn').data('email');
                             emailInfo.imgUrl = imgUrl;
 
                             socket.emit('send email', emailInfo);
