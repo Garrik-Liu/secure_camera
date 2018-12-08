@@ -4,7 +4,7 @@ Safety is important for everythings.  Surveillance camera is commonly used for k
 
 Nowadays, the internet is everywhere in our life.  It breaks the limitation of distance, and improves the efficiency of communication.  We propose to design a internet-based home surveillance system, it comprises a surveillance camera device, a cloud server, and a web app.  This system allows users to remotely monitor their home through the web app that opened in their phone or pc.  Users can be anywhere, as long as the camera that set in their home is connected to internet, they are allowed to use web app monitor their home.
 
-![](https://github.com/Garrik-Liu/secure_camera/raw/master/project_diagram.png)
+
 
 # Product Requirements (“Home Surveillance and Security System”): 
 * The ultrasonic sensor can detect if there is any people who appears in the monitored area.  
