@@ -1,13 +1,11 @@
 .deviceList__row {
     display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+    margin: 20px 0;
     padding: 0 20px;
 }
 
-.deviceList__list {
-    display: flex;
-    padding: 0;
+.deviceList__row button {
+    margin-right: 10px;
 }
 
 .deviceList__deviceBtn {
@@ -15,20 +13,12 @@
     margin-right: 20px;
 }
 
-.deviceList__infoCol {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.deviceList__infoCol p {
-    margin-bottom: 5px;
-}
-
 .deviceList__deviceBtn__mesCount {
     position: absolute;
     top: -15px;
     right: -15px;
+    opacity: 0;
+    transition: opacity, 200ms;
 }
 
 .deviceList__deviceBtn__mesCount .badge {
@@ -39,13 +29,4 @@
 .deviceList__deviceBtn__mesCount .fa-bell::before {
     font-size: 16px;
     margin-right: 2px;
-}
-
-.deviceList__addBtn {
-    width: 200px;
-    margin-bottom: 30px;
-}
-
-.deviceList__addBtn__text {
-    margin-left: 5px;
 }

@@ -1,0 +1,21 @@
+<div class="trustFaces__container">
+    <% if(faceList) { %>
+        <% faceList.forEach((faceObject) => { %>
+        <div class="card trustFace" style="width: 18rem;">
+            <img class="card-img-top" src=<%= faceObject.url %> />
+            <div class="card-body">
+                <h5 class="card-title"><%= faceObject.name %></h5>
+                <p class="card-text"><%= faceObject.description %></p>
+                <a 
+                    href="javascript:void(0);" 
+                    class="btn btn-danger trustFaces__deleteBtn" 
+                    data-toggle="modal" 
+                    data-target="#deleteFaceModel"
+                    data-id="<%= faceObject.id %>">
+                    Delete
+                </a>
+            </div>
+        </div>
+        <% }); %>
+    <% } %>
+</div>

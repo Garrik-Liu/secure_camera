@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
+.main__header__dashboardBtn {
+    margin-right: 5px;
+}
+
 .main__title {
     margin-left: 5px;
 }
@@ -11,25 +19,20 @@
 .main__container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
     padding: 0;
+    position: relative;
+}
+
+.main__main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
 
 .main__footer {
     display: flex;
     justify-content: center;
     padding: 10px;
-}
-
-.closeBtn {
-    cursor: pointer;
-    color: #fff;
-    transition: 200ms;
-    position: absolute;
-    font-size: 20px;
-    padding: 5px;
-}
-
-.closeBtn:hover {
-    color: #ddd;
 }

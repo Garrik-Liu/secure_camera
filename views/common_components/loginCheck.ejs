@@ -1,0 +1,39 @@
+<!-- component used to check login status -->
+<% if(userInfo.email) { %>
+    <li class="nav-item">
+        <a href="/dashboard" class="btn btn-outline-danger main__header__dashboardBtn">Dashboard</a>
+    </li>
+    <li class="nav-item main__header__userDropBtn">
+        <div class="btn-group" role="group">
+            <button id="headerUserDropBtn" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= userInfo.email %>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="headerUserDropBtn">
+                <a class="dropdown-item" href="/trustList">
+                    Trust List
+                </a>
+                <a class="dropdown-item" href="/logOut">
+                    Log Out
+                </a>
+            </div>
+        </div>
+    </li>
+<% } else { %>
+    <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#logInModal">
+            Log In
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#signUpModal">
+            Sign Up
+        </a>
+    </li>
+<% } %>
+
+<!-- login form model-->
+<%- include('./loginModel.ejs') %>
+<!-- sign up form model -->
+<%- include('./signUpModel.ejs') %>
+
+

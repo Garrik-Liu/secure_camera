@@ -8,8 +8,11 @@ var app = require('../app');
 var debug = require('debug')('secure-camera:server');
 var http = require('http');
 var socketIo = require('socket.io');
-var myImages = require('../lib/my-images');
-var modelDatastore = require('../lib/model-datastore');
+var argv = require('argv')
+var modelDatastore = require("../lib/model-datastore");
+
+let deviceStatus = 'off';
+
 
 
 /**
@@ -29,21 +32,41 @@ var io = socketIo(server);
 io.on('connection', function(socket) {
     console.log('A new client is connected...');
 
-    modelDatastore.list((err, entities) => {
+    modelDatastore.list('Snapshot', (err, entities) => {
         if (err) {
+            console.log(err)
             return;
         }
-        console.log('load images')
+
         socket.emit('load images', entities);
+    }, 10, { item: "time", option: { descending: true } });
+
+    socket.on('toggle device', function() {
+
+        if (deviceStatus === 'on') {
+            io.emit('turnOff camera')
+            deviceStatus = 'off'
+        } else if (deviceStatus === 'off') {
+            io.emit('turnOn camera')
+            deviceStatus = 'on'
+        }
+
+    })
+
+    socket.on('change device status', function(data) {
+        socket.emit('update deivce status', data);
     })
 
     app.setSocketIo(socket, io);
 });
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, argv.fe_ip);
+
 server.on('error', onError);
 server.on('listening', onListening);
 

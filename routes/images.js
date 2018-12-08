@@ -1,71 +1,84 @@
-var express = require('express');
-var myImages = require('../lib/my-images');
-var modelDatastore = require('../lib/model-datastore');
+const express = require("express");
+const myImages = require("../lib/my-images");
+const modelDatastore = require("../lib/model-datastore");
 
-var router = express.Router();
+const router = express.Router();
+
+const KIND = "Snapshot";
 
 router.setSocketIo = function(socket, io) {
     router.io = io;
     router.socket = socket;
-
-}
+};
 
 // add a image to google cloud storage
-router.post('/add', myImages.multer.single('image'), myImages.sendUploadToGCS, (req, res, next) => {
-    let data = req.body;
+router.post(
+    "/add",
+    myImages.multer.single("image"),
+    myImages.sendUploadToGCS,
+    (req, res, next) => {
+        let data = req.body;
 
-    data.time = new Date();
+        data.time = new Date();
 
-    if (req.file && req.file.cloudStoragePublicUrl) {
-        data.imageUrl = req.file.cloudStoragePublicUrl;
-    }
-
-    // Save the data to the database.
-    modelDatastore.create(data, (err, savedData) => {
-        if (err) {
-            next(err);
-            return;
+        if (req.file && req.file.cloudStoragePublicUrl) {
+            data.imageUrl = req.file.cloudStoragePublicUrl;
         }
 
-        // res.redirect(`${req.baseUrl}/loadAll`)
-
-        modelDatastore.list((err, entities) => {
+        // Save the data to the database.
+        modelDatastore.create(KIND, data, (err, savedData) => {
             if (err) {
                 next(err);
                 return;
             }
 
-            if (router.io) {
-                console.log('reload images');
-                router.io.emit('reload images', entities);
-                res.json({ result: 'success' });
-            } else {
-                res.json({ result: 'fail' });
-            }
+            modelDatastore.list(KIND, (err, entities) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
 
-            res.end();
-        })
+                if (router.io) {
+                    console.log("reload images");
+                    router.io.emit("reload images", entities);
+                    res.json({
+                        result: "success"
+                    });
+                } else {
+                    res.json({
+                        result: "fail"
+                    });
+                }
 
-    });
-});
+                res.end();
+            }, 10, { item: "time", option: { descending: true } });
+        });
+    }
+);
 
-router.get('/loadAll', (req, res, next) => {
-    modelDatastore.list((err, entities) => {
+router.get("/loadAll", (req, res, next) => {
+    modelDatastore.list(KIND, (err, entities) => {
         if (err) {
             next(err);
             return;
         }
 
         if (router.io) {
-            console.log('reload images');
-            router.io.emit('reload images', entities);
-            res.json({ result: 'success' });
+            console.log("reload images");
+            router.io.emit("reload images", entities);
+            res.json({
+                result: "success"
+            });
         } else {
-            res.json({ result: 'fail' });
+            res.json({
+                result: "fail"
+            });
         }
 
         res.end();
-    })
+    }, 10, { item: "time", option: { descending: true } });
 });
+
+
 
 module.exports = router;

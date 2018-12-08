@@ -1,0 +1,33 @@
+<!-- common header for every pages -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- Title link -->
+    <a class="navbar-brand" href="howto">
+        <img src="images/logo.png" height="30" class="d-inline-block align-top" alt="">
+        <span class="main__title">Home Security</span>
+    </a>
+
+    <!-- collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- header nav links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- links for all visitors -->
+        <ul class="navbar-nav mr-auto">
+            <!-- page about app instruction -->
+            <li class="nav-item">
+                <a class="nav-link" href="/howto">Home</a>
+            </li>
+            <!-- page about app's developers-->
+            <li class="nav-item">
+                <a class="nav-link" href="/aboutUs">About Us</a>
+            </li>
+        </ul>
+
+        <!-- links only for the logined users -->
+        <ul class="navbar-nav ml-auto">
+        <%- include('./loginCheck.ejs') %>
+        </ul>
+    </div>
+</nav>

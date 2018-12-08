@@ -1,6 +1,25 @@
 .deviceLive__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex: 1 1 auto;
-    height: 500px;
     margin: 0px 20px;
+    padding-top: 10px;
     border: 1px solid #333;
+}
+
+.deviceLive__canvas {
+    height: 100%;
+    padding: 10px;
+}
+
+@media screen and (max-width: 1400px) {
+    .deviceLive__canvas {
+        width: 100%;
+        height: auto;
+    }
+    .deviceLive__container {
+        height: auto;
+        margin-bottom: auto;
+    }
 }

@@ -1,24 +1,30 @@
 $(document).ready(function() {
-    var deviceMesBox = $('.deviceMesBox__container:first');
-    var deviceMesBoxCloseBtn = $('.deviceMesBox__container .closeBtn:first');
+  var deviceMesBox = $(".deviceMesBox__container--close:first");
+  var deviceMesBoxCloseBtn = $(
+    ".deviceMesBox__container--close .closeBtn:first"
+  );
 
-    $('.deviceList__deviceBtn').each(function(index) {
-        $(this).click(function() {
-            toggleSideColumn(deviceMesBox, 'open');
-        })
-    })
+  $(".deviceList__deviceBtn").each(function(index) {
+    $(this).click(function() {
+      toggleSideColumn(deviceMesBox, "open");
+      $("#deviceBtnMesCount .mesCount__number").html("0");
+      $("#deviceBtnMesCount").css("opacity", 0);
+    });
+  });
 
-    deviceMesBoxCloseBtn.click(function() {
-        toggleSideColumn(deviceMesBox, 'close');
-    })
+  deviceMesBoxCloseBtn.click(function() {
+    toggleSideColumn(deviceMesBox, "close");
+  });
 
-    function toggleSideColumn(sideColumn, state) {
-        if (state === 'open') {
-            sideColumn.css('width', 400);
-            sideColumn.css('padding', 5);
-        } else if (state === 'close') {
-            sideColumn.css('width', 0);
-            sideColumn.css('padding', 0);
-        }
+  function toggleSideColumn(sideColumn, state) {
+    if (state === "open") {
+      sideColumn
+        .toggleClass("deviceMesBox__container--close")
+        .toggleClass("deviceMesBox__container");
+    } else if (state === "close") {
+      sideColumn
+        .toggleClass("deviceMesBox__container")
+        .toggleClass("deviceMesBox__container--close");
     }
+  }
 });

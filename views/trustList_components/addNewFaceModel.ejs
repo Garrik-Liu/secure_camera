@@ -1,0 +1,41 @@
+<!-- component used to add a new face -->
+<div class="modal fade" id="addNewFaceModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form id="addNewFaceModel_form">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDeviceBoxLabel">Add New Face</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="addNewFaceModel_nameInput">Name</label>
+                        <input type="text" name="name" id="addNewFaceModel_nameInput" class="form-control"  aria-describedby="emailHelp" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="addNewFaceModel_descriptionInput">Description</label>
+                        <input type="text" name="description" id="addNewFaceModel_descriptionInput" class="form-control"  aria-describedby="emailHelp" placeholder="Enter a description">
+                    </div>
+                    <div class="form-group">
+                        <label for="addNewFaceModel_faceUpload">Upload a face photo</label>
+                        <div id="addNewFaceModel_faceUpload" class="imageupload card">
+                            <div class="file-tab card-body">
+                                <label class="btn btn-outline-dark btn-file uploadFace__browseBtn">
+                                    <span>Browse</span>
+                                    <input type="file" name="image">
+                                </label>
+                                <button type="button" class="btn btn-outline-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="addNewFaceModel_submitBtn" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

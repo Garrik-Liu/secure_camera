@@ -1,3 +1,16 @@
-.aboutUs-container {
-    flex: 1 1 auto;
+.main__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.aboutUs__infoContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutUs__infoCard {
+    width: 100% !important;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
 }

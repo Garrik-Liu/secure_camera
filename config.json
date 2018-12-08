@@ -1,6 +1,8 @@
 {
-    "GCLOUD_PROJECT": "home-security-220818",
+    "GCLOUD_PROJECT": "security-camera-221601",
     "DATA_BACKEND": "datastore",
-    "CLOUD_BUCKET": "home-security-imgs"
-
+    "CLOUD_BUCKET": "security-camera-bucket",
+    "DbUrl": "mongodb://localhost:27017/",
+    "TargetDb": "myTestDb",
+    "signKey": "secret"
 }
