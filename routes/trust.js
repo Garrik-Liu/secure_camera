@@ -35,7 +35,6 @@ router.setSocketIo = function(socket, io) {
                 next(err);
                 return;
             }
-
             let faceList = entities || [];
 
             router.socket.emit('get trustFaces', faceList)
