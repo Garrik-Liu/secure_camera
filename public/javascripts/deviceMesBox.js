@@ -152,12 +152,12 @@ function ImageEventListener(imgEleClass, imgShowId, imgShowBox__imgContainer) {
                                             "";
                                         trustFacesObj.faceInSnapshot[snapshotId] = {};
                                         trustFacesObj.faceInSnapshot[snapshotId].face = e;
-                                        trustFacesObj.faceInSnapshot[snapshotId].id = Date.now().toString() + Math.floor(Math.random() * 10000).toString();
+                                        trustFacesObj.faceInSnapshot[snapshotId].id = Date.now().toString() + Math.floor(Math.random(10000)).toString();
                                         trustFacesObj.faceInSnapshot[snapshotId].trusted = false;
-
-                                        console.log(trustFacesObj.faceInSnapshot)
                                     })
                                 }
+
+                                console.log(trustFacesObj.faceInSnapshot)
                                 let firstFace = result.FaceMatches[0];
                                 let firstFaceBoundingBox = firstFace.Face.BoundingBox;
                                 let firstFaceId = "" +
