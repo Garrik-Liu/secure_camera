@@ -74,14 +74,12 @@ function ImageEventListener(imgEleClass, imgShowId, imgShowBox__imgContainer) {
             let trustFacesObj = {
                 faceList: null,
                 faceInSnapshot: null
-
             };
 
             $('#imgShowBoxFaceDetectPanel').html('');
             $('.imgShowBox__imgBoundingBox').css('opacity', 0)
 
             let imgUrl = $(this).children("img:first").attr("src");
-
             $(imgShowId)
                 .toggleClass("imgShowBox--close")
                 .toggleClass("imgShowBox");
