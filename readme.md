@@ -1,28 +1,57 @@
-# Introduction:
+# Security Camera 安全监控摄像头
 
-Safety is important for everythings.  Surveillance camera is commonly used for keeping the safety of areas, such as room or office.  They are usually installed in the corner of the ceiling, transmit video signal to a set of monitors through cables.  This type of surveillance camera is commonly seen in our daily life, however, it is not convenient for home use.  
+## 项目介绍
 
-Nowadays, the internet is everywhere in our life.  It breaks the limitation of distance, and improves the efficiency of communication.  We propose to design a internet-based home surveillance system, it comprises a surveillance camera device, a cloud server, and a web app.  This system allows users to remotely monitor their home through the web app that opened in their phone or pc.  Users can be anywhere, as long as the camera that set in their home is connected to internet, they are allowed to use web app monitor their home.
+此项目是基于 Node.js, 树莓派, 谷歌云, AWS 图像识别, HTTP, WebSocket 通信技术的, "人脸识别安全摄像头" 物联网项目.
+
+安装在用户家里的摄像头设备, 通过家庭 WIFI 连接上互联网. 设备前部有一个用来检测物体移动的感应器. 当在设备开启的情况下, 如果前方有物体移动, 设备会抓拍下一张照片, 发送到部署在 "谷歌云" 的服务器上. 通过调用 AWS Rekognition 的接口可以对照片中的人脸图像进行分析. 用户可以自己通过上传人脸照片到 App 页面, 来添加一组自己信任的人脸. 后端服务器会对抓拍到的照片中的人脸与信任人脸做对比, 如果匹配的话, 就在照片上的人脸处显示一个绿框, 如果没有匹配则显示一个红框 , 并发送邮件给用户, 同时用户也可以在 App 上自己自行查看.
+
+于此同时, 项目有一个单独的服务器来做设备摄像头影像的实时直播. 摄像头实时的影像会通过 HTTP 协议发送到该服务器. 之后服务器同通过 WebSocket 协议来将影像数据发送给用户的客户端页面. 用户可以在客户端页面上直接接收到设备前的实时影像, 无论人在何处, 只要连接上互联网, 都可以进行操作.
 
 ![](https://github.com/Garrik-Liu/secure_camera/raw/master/project_diagram.png)
 
-# Product Requirements (“Home Surveillance and Security System”): 
-* The ultrasonic sensor can detect if there is any people who appears in the monitored area.  
-* The camera will take a picture and send to cloud server, if there is any people appears.
-* The cloud server can recognize the identity of people who shown in the picture.  
-* The cloud server will send pictures that received from camera to users’ web app.
-* Users can use web app to monitor their home in real time. 
+## 技术详情
 
+- 设备为 "树莓派 Model B". 通过 Johnny-Five 来在让 Node.js 可以操控树莓派的各个接口;
+- 摄像头为 "罗技 Logitech C920";
+- 物体移动检测器为 "HC-SR501";
+- 后端服务器使用 Node.js 语言, Express 框架;
+- 服务器部署在 Google Cloud Computer Enginer;
+- 抓拍的照片, 用户信任人脸照片, 保存在 Google Cloud Storage
+- 用户相关信息保存在 Google Cloud Datastore -照片识别, 人脸识别通过 Aws Rekognition SDK 实现. -树莓派通过 HTTP 协议把照片, 和直播数据流发送到服务器.
+- 直播服务器通过 WebSocket 协议把直播数据流发送到前端应用.
 
-# Product Specifications (“Home Surveillance and Security System”): 
-* Using SM41-CNF to be the camera.
-* Using HC-SR04 to be the ultrasonic sensor.
-* Using Raspberry Pi Model B to control the camera and ultrasonic sensor
-* Google Cloud Server is used to be the server.
-* Cloud Server uses Google Cloud Vision API to recognize faces.
-* Users are able to use browser to use Web App
-* Cloud Server sends picture that received from raspberry pi to web app, and people’s identities will be shown on web app at the same time.
-* HTTP is used to be the communication protocol between cloud server, browser, and raspberry pi.
-* Cloud server, browser, and raspberry pi connect to Internet all the time.
+## 项目截图
 
+在用户打开页面的时候会被要求登录, 登录后状态会被保存一周:
 
+![Screen Shot 2019-04-01 at 11.10.45 PM](https://i.loli.net/2019/04/01/5ca22a57057d6.png)
+
+![Screen Shot 2019-04-01 at 11.11.29 PM](https://i.loli.net/2019/04/01/5ca22a7c5de18.png)
+
+登录成功后会跳转到一个 Dashboard  用户操作界面. 在这个页面用户可以  远程开关设备; 可以看到设备摄像头拍摄的实时影像; 如摄像头前有人移动, 抓拍的照片会列在右边:
+
+![Picture1](https://i.loli.net/2019/04/01/5ca22b36e81ca.png)
+
+用户可以通过 TRUST LIST 页面来维护一组自己信任的人:
+
+![Screen Shot 2019-04-01 at 11.20.30 PM](https://i.loli.net/2019/04/01/5ca22c8b84b31.png)
+
+![Screen Shot 2019-04-01 at 11.23.15 PM](https://i.loli.net/2019/04/01/5ca22cfb75369.png)
+
+当用户点击抓拍照片时, 图片上的人脸会被方框勾出来, 识别出来的人脸信息会显示在下方:
+
+![Picture1](https://i.loli.net/2019/04/01/5ca22db57b40c.png)
+
+于此同时, 如果有未信任人脸出现, 一封带有抓拍图片的邮件会被发到用户邮箱:
+
+![Screen Shot 2019-04-01 at 11.28.01 PM](https://i.loli.net/2019/04/01/5ca22e49062f0.png)
+
+## 待优化列表
+
+这个项目还有很多需要被完善地方:
+
+1. 目前项目没有多用户系统, 虽然有登录验证, 但所有注册账户够共用一组用户数据.
+2. 设备连接 WIFI 的过程需要优化, 目前用户第一次连接需要将树莓派用 HDMI 线连接上显示器, 然后手动连接 WIFI 网络.
+3. 客户端应用基于网页, 除了用邮件提示用户, 希望以后可以通过跨平台方案, 调用移动设备的系统提示功能.
+4. 目前只有一种安全模式, 即 "有未信任人脸出现就发送报警邮件". 希望日后可以做出更多安全模式, 或者支持用户自定义安全模式.

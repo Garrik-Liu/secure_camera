@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('secure-camera:server');
+//var debug = require('debug')('secure-camera:server');
 var http = require('http');
 var socketIo = require('socket.io');
 var argv = require('argv')
@@ -124,8 +124,9 @@ function onError(error) {
 
 function onListening() {
     var addr = server.address();
-    var bind = typeof addr === 'string' ?
-        'pipe ' + addr :
-        'port ' + addr.port;
-    debug('Listening on ' + bind);
+    console.log(addr.address, addr.port)
+        //var bind = typeof addr === 'string' ?
+        //'pipe ' + addr :
+        //'port ' + addr.port;
+        //debug('Listening on ' + bind);
 }
