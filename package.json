@@ -10,7 +10,7 @@
         "@google-cloud/datastore": "2.0.0",
         "@google-cloud/storage": "^2.2.0",
         "argv": "0.0.2",
-        "aws-sdk": "^2.361.0",
+        "aws-sdk": "^2.814.0",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.3",
         "bootstrap": "^4.1.3",
